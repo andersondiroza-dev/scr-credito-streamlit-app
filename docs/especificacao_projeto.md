@@ -108,7 +108,7 @@ scr-credito-streamlit/
 **Indicadores:**
 - carteira ativa (R$)
 - crescimento em 12 meses (dez/25 vs dez/24)
-- taxa de inadimplência = `carteira_inadimplencia` (vencido > 90 dias) ÷ `carteira_ativa`
+- taxa de inadimplência = `carteira_inadimplencia` (saldo das operações com alguma parcela em atraso > 90 dias, conforme a metodologia do BCB) ÷ `carteira_ativa`
 - % de ativo problemático
 - participação de mercado por segmento e HHI
 

@@ -22,7 +22,7 @@ interface.mostrar(
 interface.mostrar(
     graficos.linhas_mensais(serie, "taxa_inadimplencia", "Taxa de inadimplência (> 90 dias) por mês", "% da carteira",
                             por=por, marcar_jan_2025=True),
-    "percentual da carteira com atraso acima de 90 dias. Linha subindo = risco aumentando. "
+    "percentual da carteira em operações com alguma parcela em atraso acima de 90 dias. Linha subindo = risco aumentando. "
     "A linha pontilhada marca jan/2025, quando a Res. CMN 4.966/2021 entrou em vigor e a série muda de comportamento.",
 )
 

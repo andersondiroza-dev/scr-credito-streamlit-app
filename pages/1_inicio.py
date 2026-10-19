@@ -35,7 +35,7 @@ c1.metric(f"Carteira ativa ({utils.nome_mes(mes_ref)})", utils.formatar_reais(k[
 c2.metric("Crescimento da carteira", utils.formatar_pct(k["crescimento_pct"]), help=f"Comparação {comparacao}.")
 c3.metric("Inadimplência (> 90 dias)", utils.formatar_pct(k["inadimplencia_ref_pct"]),
           delta=utils.formatar_pp(k["inadimplencia_ref_pct"] - k["inadimplencia_base_pct"]), delta_color="inverse",
-          help=f"Parcela da carteira vencida há mais de 90 dias. A seta mostra a variação {comparacao} (vermelho = piora).")
+          help=f"Saldo das operações com alguma parcela em atraso acima de 90 dias, em % da carteira. A seta mostra a variação {comparacao} (vermelho = piora).")
 c4.metric("Participação das fintechs", utils.formatar_pct(k["participacao_fintech_pct"]),
           help="Fatia da carteira ativa concedida por instituições classificadas pelo BCB como Fintech.")
 

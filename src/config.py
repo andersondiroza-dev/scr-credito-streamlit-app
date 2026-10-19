@@ -29,7 +29,7 @@ COLUNAS_MONETARIAS = [
     "vencido_de_15_ate_90_dias",
     "carteira_vencida",
     "carteira_ativa",
-    "carteira_inadimplencia",  # parcela vencida há mais de 90 dias
+    "carteira_inadimplencia",  # saldo das operações com alguma parcela em atraso > 90 dias (metodologia BCB)
     "ativo_problematico",
 ]
 
