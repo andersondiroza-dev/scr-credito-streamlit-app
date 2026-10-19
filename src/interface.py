@@ -82,5 +82,6 @@ def sem_dados(df: pd.DataFrame) -> bool:
 
 
 def mostrar(fig, como_ler: str) -> None:
-    st.plotly_chart(fig, width="stretch")
+    # theme=None mantém a paleta e o layout definidos em src/graficos.py (o tema do Streamlit os substituiria)
+    st.plotly_chart(fig, width="stretch", theme=None)
     st.caption(f"**Como ler:** {como_ler}")

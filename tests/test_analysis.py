@@ -122,3 +122,7 @@ def test_descritivas_por_grupo(fato_exemplo):
     assert d.loc["PJ", "mediana"] == pytest.approx(2.0)
     assert d.loc["PJ", "n_meses"] == 2
     assert list(d.columns) == ["media", "mediana", "desvio_padrao", "q1", "q3", "minimo", "maximo", "n_meses"]
+
+
+def test_interpretar_spearman_usa_virgula_decimal():
+    assert "ρ = 0,12" in analysis.interpretar_spearman(0.1198, 0.4333)

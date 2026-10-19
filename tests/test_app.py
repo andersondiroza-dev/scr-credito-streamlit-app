@@ -34,3 +34,14 @@ def test_mensagem_quando_parquet_falta(tmp_path, monkeypatch):
     at = AppTest.from_file(APP, default_timeout=30).run()
     assert not at.exception
     assert any("python -m src.transform" in e.value for e in at.error)
+
+
+PAGINAS = ["pages/2_evolucao.py", "pages/3_crescimento_risco.py", "pages/4_quem_empresta.py",
+           "pages/5_onde_e_o_que.py", "pages/6_metodologia.py"]
+
+
+@pytest.mark.parametrize("pagina", PAGINAS)
+def test_paginas_abrem_sem_erro(app_teste, pagina):
+    at = app_teste.run()
+    at.switch_page(pagina).run()
+    assert not at.exception, at.exception

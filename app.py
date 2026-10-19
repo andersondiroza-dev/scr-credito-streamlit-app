@@ -15,5 +15,10 @@ st.session_state["filtros"] = interface.barra_lateral(dados["fato_credito"])
 
 paginas = st.navigation([
     st.Page("pages/1_inicio.py", title="Início", icon="🏠", default=True),
+    st.Page("pages/2_evolucao.py", title="Evolução", icon="📈"),
+    st.Page("pages/3_crescimento_risco.py", title="Crescimento x Risco", icon="🎯"),
+    st.Page("pages/4_quem_empresta.py", title="Quem empresta", icon="🏦"),
+    st.Page("pages/5_onde_e_o_que.py", title="Onde e o quê", icon="🗺️"),
+    st.Page("pages/6_metodologia.py", title="Metodologia e limites", icon="📚"),
 ])
 paginas.run()
