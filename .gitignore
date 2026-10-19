@@ -1,0 +1,18 @@
+# Ambiente virtual e caches do Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Dados brutos do BCB (~2,4 GB): são baixados por src/extract.py, não versionados
+data/raw/*
+!data/raw/.gitkeep
+*.zip.part
+
+# Segredos e configurações locais (o projeto não usa credenciais, mas fica a proteção)
+.env
+.streamlit/secrets.toml
+
+# Sistema operacional
+.DS_Store
