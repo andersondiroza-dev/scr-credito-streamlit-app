@@ -63,3 +63,62 @@ def test_kpis_sem_dados_nao_quebra(fato_exemplo):
     k = analysis.kpis(fato_exemplo.iloc[0:0], "2024-12", "2025-12")
     assert k["carteira_ref"] == 0.0
     assert math.isnan(k["crescimento_pct"])
+
+
+def test_crescimento_x_risco(fato_exemplo):
+    cxr = analysis.crescimento_x_risco(fato_exemplo, "2024-12", "2025-12", chaves=("segmento", "cliente"), carteira_minima=0)
+    fintech = cxr.set_index(["segmento", "cliente"]).loc[("Fintech", "PF")]
+    assert fintech["crescimento_pct"] == pytest.approx(100.0)
+    assert fintech["inadimplencia_base_pct"] == pytest.approx(10.0)
+    assert fintech["inadimplencia_ref_pct"] == pytest.approx(15.0)
+    assert fintech["variacao_inadimplencia_pp"] == pytest.approx(5.0)
+
+
+def test_crescimento_x_risco_exclui_carteira_pequena(fato_exemplo):
+    cxr = analysis.crescimento_x_risco(fato_exemplo, "2024-12", "2025-12", chaves=("segmento", "cliente"), carteira_minima=500)
+    assert ("Fintech" in cxr["segmento"].tolist()) is False
+
+
+def test_correlacao_spearman_perfeita():
+    df = pd.DataFrame({"x": [1, 2, 3, 4, 5], "y": [10, 20, 30, 40, 50]})
+    r = analysis.correlacao_spearman(df, "x", "y")
+    assert r["rho"] == pytest.approx(1.0)
+    assert r["n"] == 5
+
+
+def test_correlacao_spearman_poucos_pontos():
+    r = analysis.correlacao_spearman(pd.DataFrame({"x": [1, 2], "y": [2, 1]}), "x", "y")
+    assert math.isnan(r["rho"]) and r["n"] == 2
+
+
+def test_interpretar_spearman():
+    assert "positiva" in analysis.interpretar_spearman(0.6, 0.001)
+    assert "não é estatisticamente significativa" in analysis.interpretar_spearman(0.1, 0.4)
+
+
+def test_tendencia_linear_reta_perfeita():
+    t = analysis.tendencia_linear([1.0, 1.5, 2.0, 2.5])
+    assert t["inclinacao"] == pytest.approx(0.5)
+    assert t["r2"] == pytest.approx(1.0)
+    assert t["ic95_inferior"] == pytest.approx(0.5)
+    assert t["ic95_superior"] == pytest.approx(0.5)
+
+
+def test_participacao_e_hhi(fato_exemplo):
+    part, hhi = analysis.participacao_e_hhi(fato_exemplo, "2025-12")
+    banco = part.set_index("segmento").loc["Banco", "participacao_pct"]
+    assert banco == pytest.approx(2000 / 2200 * 100)
+    assert hhi == pytest.approx((2000 / 2200 * 100) ** 2 + (200 / 2200 * 100) ** 2)
+
+
+def test_classificar_hhi():
+    assert analysis.classificar_hhi(1000).startswith("baixa")
+    assert analysis.classificar_hhi(2000).startswith("moderada")
+    assert analysis.classificar_hhi(8000).startswith("alta")
+
+
+def test_descritivas_por_grupo(fato_exemplo):
+    d = analysis.descritivas_por_grupo(fato_exemplo, "cliente")
+    assert d.loc["PJ", "mediana"] == pytest.approx(2.0)
+    assert d.loc["PJ", "n_meses"] == 2
+    assert list(d.columns) == ["media", "mediana", "desvio_padrao", "q1", "q3", "minimo", "maximo", "n_meses"]
