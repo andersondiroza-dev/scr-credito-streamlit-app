@@ -62,3 +62,16 @@ REGIAO_POR_UF = {
 MES_VALIDACAO = "2025-12"
 CARTEIRA_ESPERADA_VALIDACAO = 7.444e12
 TOLERANCIA_VALIDACAO = 0.01
+
+# Identificação acadêmica e do autor, exibida no app (topo da página Início e barra lateral).
+PROJETO = {
+    "curso": "Visualização de Dados e BI (Módulo 2)",
+    "trabalho": "Projeto Final",
+    "instituicoes": "SCTEC · SENAI/SC · LAB365",
+    "autor": "Anderson Diroza",
+    "professor": "Rodrigo Garcia Brunini",
+    "ano": 2026,
+    "linkedin": "https://www.linkedin.com/in/andersondiroza",
+    "site": "https://andersondiroza.com.br",
+    "repositorio": "",  # preenchido após a publicação no GitHub
+}

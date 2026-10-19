@@ -48,8 +48,31 @@ def barra_lateral(fato: pd.DataFrame) -> dict:
     ufs = st.sidebar.multiselect("UF", ufs_disponiveis, placeholder="Todas")
     modalidades = st.sidebar.multiselect("Modalidade", _opcoes(fato, "modalidade"), placeholder="Todas")
     st.sidebar.caption(utils.FONTE)
+    identificacao_lateral()
     return {"inicio": inicio, "fim": fim, "clientes": clientes, "segmentos": segmentos,
             "regioes": regioes, "ufs": ufs, "modalidades": modalidades}
+
+
+def identificacao_curso() -> str:
+    """Linha que identifica o trabalho acadêmico (usada no topo da página Início)."""
+    p = config.PROJETO
+    return f"{p['trabalho']} · {p['curso']} · {p['instituicoes']} · {p['ano']}"
+
+
+def identificacao_lateral() -> None:
+    """Bloco fixo no fim da barra lateral: autor, curso e links (aparece em todas as páginas)."""
+    p = config.PROJETO
+    links = [f"[LinkedIn]({p['linkedin']})", f"[Site]({p['site']})"]
+    if p["repositorio"]:
+        links.append(f"[Repositório]({p['repositorio']})")
+    st.sidebar.divider()
+    st.sidebar.markdown(
+        f"**{p['autor']}**  \n"
+        f"{p['trabalho']} · {p['curso']}  \n"
+        f"{p['instituicoes']} · {p['ano']}  \n"
+        f"Professor: {p['professor']}  \n"
+        + " · ".join(links)
+    )
 
 
 def contexto():

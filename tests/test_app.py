@@ -45,3 +45,10 @@ def test_paginas_abrem_sem_erro(app_teste, pagina):
     at = app_teste.run()
     at.switch_page(pagina).run()
     assert not at.exception, at.exception
+
+
+def test_identificacao_do_curso_e_do_autor(app_teste):
+    at = app_teste.run()
+    textos = " ".join(m.value for m in at.markdown) + " ".join(c.value for c in at.caption)
+    for esperado in ["Anderson Diroza", "Rodrigo Garcia Brunini", "SENAI/SC", "Visualização de Dados e BI"]:
+        assert esperado in textos, esperado
