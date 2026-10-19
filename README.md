@@ -455,10 +455,10 @@ scr-credito-streamlit/
 | Repositório pessoal (GitHub, privado, **avaliado**) | [github.com/andersondiroza-dev/scr-credito-streamlit](https://github.com/andersondiroza-dev/scr-credito-streamlit) |
 | App publicado (Streamlit Community Cloud) | [scr-credito-nacional.streamlit.app](https://scr-credito-nacional.streamlit.app) |
 | Espelho público usado no deploy | [github.com/andersondiroza-dev/scr-credito-streamlit-app](https://github.com/andersondiroza-dev/scr-credito-streamlit-app) |
-| Quadro de tarefas (Trello) | _a preencher_ |
+| Planejamento do projeto | [Especificação](docs/especificacao_projeto.md) e [plano de implementação em 13 tarefas](docs/plano_implementacao.md), versionados no repositório |
 | Repositório oficial da turma | _a preencher_ |
 | Publicação no LinkedIn | _a preencher_ |
-| Vídeo (Google Drive) | _a preencher_ |
+| Vídeo (Google Drive, acesso de leitor por link) | _a preencher_ |
 
 ## 16. Estratégia de versionamento
 
