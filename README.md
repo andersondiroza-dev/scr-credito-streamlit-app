@@ -284,6 +284,20 @@ muito maiores que os demais.
 - Esta versão em Python e Streamlit acrescenta o que um ambiente corporativo exige: processo documentado,
   testado e reproduzível.
 
+### 9.1 Compare as duas versões
+
+O mesmo dataset foi publicado em duas tecnologias. Os links ficam aqui para quem quiser comparar:
+
+| | Versão Lovable (case comercial) | Versão Streamlit (este projeto) |
+|---|---|---|
+| Link | [bcb-scr-data.andersondiroza.com.br](https://bcb-scr-data.andersondiroza.com.br) | [scr-credito-nacional.streamlit.app](https://scr-credito-nacional.streamlit.app) |
+| Tecnologia | aplicação web (React/TypeScript) gerada no Lovable, com banco Supabase | Python: pandas, SciPy, Plotly e Streamlit |
+| Dados | CSVs preparados por ETL em Python e importados no banco | Parquets gerados pelo ETL deste repositório, versionados com o código |
+| Ponto forte | visual e experiência de produto, voltados à apresentação comercial | processo analítico reproduzível: ETL testado, estatística (Spearman, regressão, HHI) e decisões documentadas |
+| Reprodução | depende da plataforma e do banco | `python -m src.extract && python -m src.transform && streamlit run app.py` |
+
+As duas versões se complementam: a primeira mostra o produto, e esta mostra, passo a passo, como os números foram obtidos e validados.
+
 **Como o pipeline seria usado numa empresa:**
 - **Atualização:**
   - O BCB publica mensalmente, no último dia útil, com os dados disponíveis 30 dias após o fechamento.

@@ -63,7 +63,7 @@ with st.expander("Por que este painel existe (aplicação profissional)"):
         "([bcb-scr-data.andersondiroza.com.br](https://bcb-scr-data.andersondiroza.com.br)). Ao ser apresentado "
         "em funcionamento, esse case gerou contratos com clientes de menor porte e contatos de duas fintechs e de "
         "uma financeira de cartões. Esta versão refaz todo o pipeline em Python e Streamlit, com o processo de "
-        "dados documentado, testado e reproduzível."
+        "dados documentado, testado e reproduzível. Abra os dois links para comparar as versões."
     )
 
 st.caption("Os resultados descrevem associações nos dados agregados do BCB e não demonstram causalidade. "
