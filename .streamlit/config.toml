@@ -1,0 +1,10 @@
+# Tema azul e branco (identidade visual do autor)
+[theme]
+base = "light"
+primaryColor = "#1F4E9E"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#EEF3FB"
+textColor = "#0F1B2D"
+
+[client]
+toolbarMode = "minimal"
