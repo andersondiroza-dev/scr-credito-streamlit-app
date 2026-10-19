@@ -102,3 +102,115 @@ def limpar_mes(df_bruto: pd.DataFrame) -> pd.DataFrame:
         *config.COLUNAS_MONETARIAS,
     ]
     return df[colunas_finais].reset_index(drop=True)
+
+
+# Métricas somadas em todas as agregações.
+METRICAS_SOMA = ["numero_operacoes", "operacao_suprimida", *config.COLUNAS_MONETARIAS]
+
+
+def agregar(df: pd.DataFrame, chaves: list[str]) -> pd.DataFrame:
+    """Soma as métricas no nível pedido (ex.: mês × cliente).
+
+    A coluna operacao_suprimida, somada, passa a significar "quantas combinações do
+    arquivo original foram suprimidas", por isso é renomeada.
+    """
+    return (
+        df.groupby(chaves, as_index=False, observed=True)[METRICAS_SOMA].sum()
+        .rename(columns={"operacao_suprimida": "combinacoes_suprimidas"})
+    )
+
+
+def validar_total(resumo: pd.DataFrame, mes: str, esperado: float, tolerancia: float) -> float:
+    """Confere a carteira ativa nacional de um mês contra o valor de referência."""
+    total = float(resumo.loc[resumo["ano_mes"] == mes, "carteira_ativa"].sum())
+    desvio = abs(total / esperado - 1)
+    if desvio > tolerancia:
+        raise ValueError(
+            f"Carteira de {mes} = R$ {total / 1e12:.3f} tri diverge {desvio:.1%} "
+            f"da referência R$ {esperado / 1e12:.3f} tri."
+        )
+    print(f"[transform] validação ok: carteira de {mes} = R$ {total / 1e12:.3f} tri (desvio {desvio:.2%})")
+    return total
+
+
+def ler_meses_do_zip(caminho: Path) -> Iterator[pd.DataFrame]:
+    """Lê, um por vez, os CSVs mensais de um ZIP (cada um tem ~100 MB; ler um por vez poupa memória).
+
+    sep=";" e encoding="utf-8-sig" seguem o formato do BCB (o "-sig" remove o BOM).
+    dtype=str: tudo entra como texto e a conversão é feita de forma controlada em limpar_mes.
+    O pandas respeita as aspas, então um ";" dentro do nome de um setor não quebra a coluna.
+    """
+    with zipfile.ZipFile(caminho) as arquivo_zip:
+        nomes = sorted(n for n in arquivo_zip.namelist() if n.endswith(".csv"))
+        for nome in nomes:
+            with arquivo_zip.open(nome) as csv:
+                yield pd.read_csv(csv, sep=";", encoding="utf-8-sig", dtype=str)
+
+
+def _como_categoria(df: pd.DataFrame) -> pd.DataFrame:
+    """Converte colunas de texto em 'category': o Parquet fica bem menor e mais rápido de ler.
+
+    ano_mes continua texto, porque os filtros de período comparam meses com >= e <=
+    (texto "2024-01" < "2025-12" funciona; categoria sem ordem não permite essa comparação).
+    No pandas 3, texto tem o tipo "str" (e não mais "object"), por isso os dois são incluídos.
+    """
+    for coluna in df.select_dtypes(include=["object", "str"]).columns:
+        if coluna != "ano_mes":
+            df[coluna] = df[coluna].astype("category")
+    return df
+
+
+def executar(
+    dir_raw: Path | None = None,
+    dir_processed: Path | None = None,
+    anos=None,
+    meses_por_ano: int = 12,
+    validar: bool = True,
+) -> dict[str, pd.DataFrame]:
+    """Roda a transformação completa e grava os Parquets em dir_processed."""
+    dir_raw = Path(dir_raw or config.DIR_RAW)
+    dir_processed = Path(dir_processed or config.DIR_PROCESSED)
+    anos = anos or config.ANOS
+
+    partes = {"fato_credito": [], "fato_setor": [], "resumo_mensal": []}
+    qualidade = []
+
+    for ano in anos:
+        caminho = dir_raw / f"scrdata_{ano}.zip"
+        if not caminho.exists():
+            raise FileNotFoundError(f"{caminho} não encontrado. Rode antes: python -m src.extract")
+
+        meses_lidos = 0
+        for df_bruto in ler_meses_do_zip(caminho):
+            qualidade.append(relatorio_qualidade(df_bruto))
+            df = limpar_mes(df_bruto)
+            partes["fato_credito"].append(agregar(df, config.CHAVES_FATO_CREDITO))
+            partes["fato_setor"].append(agregar(df, config.CHAVES_FATO_SETOR))
+            partes["resumo_mensal"].append(agregar(df, config.CHAVES_RESUMO))
+            meses_lidos += 1
+            print(f"[transform] {qualidade[-1]['ano_mes']}: {len(df_bruto):,} linhas brutas -> {len(partes['fato_credito'][-1]):,} no fato")
+
+        if meses_lidos != meses_por_ano:
+            raise ValueError(f"{caminho.name}: {meses_lidos} meses encontrados, esperados {meses_por_ano}.")
+
+    tabelas = {nome: pd.concat(lista, ignore_index=True) for nome, lista in partes.items()}
+    tabelas["qualidade_mensal"] = pd.DataFrame(qualidade)
+
+    if validar:
+        validar_total(tabelas["resumo_mensal"], config.MES_VALIDACAO, config.CARTEIRA_ESPERADA_VALIDACAO, config.TOLERANCIA_VALIDACAO)
+
+    dir_processed.mkdir(parents=True, exist_ok=True)
+    for nome, tabela in tabelas.items():
+        destino = dir_processed / f"{nome}.parquet"
+        _como_categoria(tabela).to_parquet(destino, index=False)
+        print(f"[transform] {destino.name}: {tabela.shape[0]:,} linhas, {destino.stat().st_size / 1e6:.1f} MB")
+
+    return tabelas
+
+
+def main() -> None:
+    executar()
+
+
+if __name__ == "__main__":
+    main()
