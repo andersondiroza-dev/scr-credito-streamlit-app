@@ -102,18 +102,23 @@ def correlacao_spearman(df, x, y):
     return {"rho": float(resultado.statistic), "p_valor": float(resultado.pvalue), "n": n}
 
 
+def _br(valor, casas=2):
+    """Número com vírgula decimal, para os textos lidos pelo usuário."""
+    return f"{valor:.{casas}f}".replace(".", ",")
+
+
 def interpretar_spearman(rho, p_valor, alfa=0.05):
-    """Traduz o resultado para linguagem simples, sem afirmar causalidade."""
+    """Traduz o resultado para linguagem simples, sem afirmar causalidade (números no padrão brasileiro)."""
     if np.isnan(rho):
         return "Não há combinações suficientes para calcular a correlação com os filtros atuais."
     if p_valor >= alfa:
-        return (f"A correlação (ρ = {rho:.2f}) não é estatisticamente significativa (p = {p_valor:.3f}): "
+        return (f"A correlação (ρ = {_br(rho)}) não é estatisticamente significativa (p = {_br(p_valor, 3)}): "
                 "não há evidência de que crescer mais ande junto com mais risco neste recorte.")
     forca = "forte" if abs(rho) >= 0.6 else "moderada" if abs(rho) >= 0.3 else "fraca"
     sentido = "positiva" if rho > 0 else "negativa"
     leitura = ("segmentos que mais cresceram tenderam a piorar mais a inadimplência" if rho > 0
                else "segmentos que mais cresceram tenderam a piorar menos (ou melhorar) a inadimplência")
-    return (f"Correlação {sentido} {forca} (ρ = {rho:.2f}, p = {p_valor:.3f}): {leitura}. "
+    return (f"Correlação {sentido} {forca} (ρ = {_br(rho)}, p = {_br(p_valor, 3)}): {leitura}. "
             "Correlação não implica causalidade.")
 
 
