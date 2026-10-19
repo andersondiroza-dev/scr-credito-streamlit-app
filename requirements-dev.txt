@@ -1,0 +1,6 @@
+-r requirements.txt
+ipykernel==7.4.0
+jupyter==1.1.1
+matplotlib==3.11.2
+nbconvert==7.17.2
+pytest==9.1.1
