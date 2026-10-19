@@ -84,18 +84,24 @@ scr-credito-streamlit/
    quantidade de combinações suprimidas é contada em uma coluna própria.
 3. Faço `strip` nas categorias e verifico valores ausentes e linhas duplicadas, com um
    relatório impresso no console.
-4. `grupo_credito` (Livre/Direcionado) é derivado da submodalidade **antes** da agregação.
-   Depois disso a submodalidade é descartada do fato principal, para reduzir o volume.
-   É uma aproximação do autor, documentada como tal.
-5. Validação: a carteira ativa nacional de dez/2025 deve ser ≈ R$ 7,44 tri; se divergir,
-   o script avisa.
+4. `grupo_credito` (Livre/Direcionado) vem do campo oficial `origem`: "Sem destinação
+   específica" vira Livre e "Com destinação específica" vira Direcionado. É a classificação
+   do próprio BCB, sem aproximação. A submodalidade não entra no fato, o que reduz o volume.
+5. Minimização (enunciado 4.4): as faixas de vencimento ("a vencer até 90 dias" etc.) e o
+   indexador não respondem à pergunta e são descartados. Espaços duplicados nas categorias
+   são normalizados.
+6. Linhas duplicadas exatas são removidas, com a contagem registrada. Categorias ausentes
+   viram "Não informado". Valor monetário que não converte interrompe o ETL com erro.
+7. Validação: a carteira ativa nacional de dez/2025 deve ser ≈ R$ 7,444 tri (conferido no
+   arquivo bruto em 19/10/2026). Se divergir mais de 1%, o ETL falha.
 
 ### Saídas
-- `fato_credito`: ano_mes × uf × cliente × segmento × modalidade × grupo_credito × porte,
-  com as métricas monetárias e as operações
+- `fato_credito`: ano_mes × uf × regiao × cliente × segmento × modalidade × grupo_credito
+  × porte, com as métricas monetárias e as operações. A região é uma coluna, não uma
+  tabela à parte.
 - `fato_setor`: ano_mes × cliente × cnae_ocupacao
 - `resumo_mensal`: ano_mes × cliente
-- dimensões: uf→região, tempo
+- `qualidade_mensal`: linhas, nulos, duplicadas e supressões por mês (alimenta a EDA)
 
 ## 4. Análise e estatística (`src/analysis.py` + notebook)
 
@@ -150,8 +156,11 @@ A conclusão do notebook separa **observação**, **hipótese** e **recomendaç�
     e `docs/readme`
   - commits pequenos no imperativo em PT; repositório **privado** no GitHub, com o
     professor como colaborador
-- **Ambiente:** `.venv` e `requirements.txt` com versões fixas; versão de Python
-  compatível com o Streamlit Cloud.
+- **Ambiente:** `.venv`; `requirements.txt` (só o que o app usa no deploy) e
+  `requirements-dev.txt` (pytest, Jupyter, Matplotlib), ambos com versões fixas. O
+  Streamlit Cloud é configurado com Python 3.12.
+- **Navegação:** `st.navigation` no `app.py`, com as páginas em `pages/`. Os filtros da
+  barra lateral são definidos uma única vez, no `app.py`.
 - **Responsabilidades do autor:**
   - Trello
   - vídeo de ≤ 3 min no LinkedIn marcando @rgbrunini, LAB365, SENAI SC e FIESC
