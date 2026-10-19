@@ -1,12 +1,14 @@
 """Página Início: pergunta, público, contexto e os principais números."""
 import streamlit as st
 
-from src import analysis, interface, utils
+from src import analysis, config, interface, utils
 
 dados, filtros, fato = interface.contexto()
 mes_base, mes_ref = interface.meses_comparacao(dados["fato_credito"], filtros)
 
 st.title("Panorama do Crédito Nacional")
+st.caption(f"{interface.identificacao_curso()}  \n"
+           f"**Autor:** {config.PROJETO['autor']} · **Professor:** {config.PROJETO['professor']}")
 st.markdown(
     "**Pergunta:** onde o crédito brasileiro está crescendo entre 2024 e 2025, "
     "e esse crescimento vem acompanhado de mais risco?\n\n"
