@@ -73,5 +73,6 @@ PROJETO = {
     "ano": 2026,
     "linkedin": "https://www.linkedin.com/in/andersondiroza",
     "site": "https://andersondiroza.com.br",
-    "repositorio": "",  # preenchido após a publicação no GitHub
+    # Link exibido no app: o espelho público (o repositório avaliado é privado e daria 404 para visitantes).
+    "repositorio": "https://github.com/andersondiroza-dev/scr-credito-streamlit-app",
 }

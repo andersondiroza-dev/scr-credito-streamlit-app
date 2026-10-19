@@ -64,7 +64,7 @@ def identificacao_lateral() -> None:
     p = config.PROJETO
     links = [f"[LinkedIn]({p['linkedin']})", f"[Site]({p['site']})"]
     if p["repositorio"]:
-        links.append(f"[Repositório]({p['repositorio']})")
+        links.append(f"[Código-fonte]({p['repositorio']})")
     st.sidebar.divider()
     st.sidebar.markdown(
         f"**{p['autor']}**  \n"

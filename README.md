@@ -1,6 +1,6 @@
 # Panorama do Crédito Nacional: crescimento e risco (SCR.data, 2024–2025)
 
-> **App publicado:** _a preencher após o deploy_ · **Vídeo:** _a preencher_
+> **App publicado:** [scr-credito-nacional.streamlit.app](https://scr-credito-nacional.streamlit.app) · **Vídeo:** _a preencher_
 >
 > Projeto Final · Visualização de Dados e BI (Módulo 2) · SCTEC · SENAI/SC · LAB365 · 2026
 > **Autor:** Anderson Diroza · **Professor:** Rodrigo Garcia Brunini
@@ -307,7 +307,7 @@ muito maiores que os demais.
 
 ## 10. Aplicação Streamlit
 
-**Link:** _a preencher após o deploy_
+**Link:** [https://scr-credito-nacional.streamlit.app](https://scr-credito-nacional.streamlit.app) (público, abre sem login)
 
 ![Quadrante no app](outputs/app_quadrante.png)
 
@@ -322,6 +322,13 @@ região, UF e modalidade. Cada página mostra os **filtros ativos** e a quantida
 | Quem empresta | Participação de mercado, HHI e crescimento e inadimplência por tipo de instituição |
 | Onde e o quê | UFs (ranking e boxplot) e modalidades, com crédito livre x direcionado |
 | Metodologia e limites | Fonte, licença, tratamento, definições, limites e qualidade dos arquivos brutos |
+
+**Por que existe um espelho público:**
+- O enunciado pede o repositório pessoal em modo **privado**, e assim ele foi mantido.
+- No deploy, a tela de autorização do GitHub para dar ao Streamlit acesso a repositórios privados não habilitou o botão de confirmar.
+- A solução foi publicar a branch `main` num **espelho público**, `scr-credito-streamlit-app`, idêntico commit a commit, de onde o Streamlit Community Cloud faz o deploy.
+- O conteúdo é só código e dados públicos do BCB: nenhum segredo nem dado pessoal (auditado antes da publicação).
+- O histórico completo, com as branches de cada etapa, está no repositório privado, que é o avaliado.
 
 Todo gráfico tem título, eixos com unidade, legenda, fonte e uma nota de **"Como ler"**. Quando um filtro
 não retorna dados, o app mostra uma mensagem explicativa em vez de um gráfico vazio. Se os Parquets
@@ -431,8 +438,9 @@ scr-credito-streamlit/
 
 | Item | Link |
 |---|---|
-| Repositório pessoal (GitHub, privado) | _a preencher_ |
-| App publicado (Streamlit Community Cloud) | _a preencher_ |
+| Repositório pessoal (GitHub, privado, **avaliado**) | [github.com/andersondiroza-dev/scr-credito-streamlit](https://github.com/andersondiroza-dev/scr-credito-streamlit) |
+| App publicado (Streamlit Community Cloud) | [scr-credito-nacional.streamlit.app](https://scr-credito-nacional.streamlit.app) |
+| Espelho público usado no deploy | [github.com/andersondiroza-dev/scr-credito-streamlit-app](https://github.com/andersondiroza-dev/scr-credito-streamlit-app) |
 | Quadro de tarefas (Trello) | _a preencher_ |
 | Repositório oficial da turma | _a preencher_ |
 | Publicação no LinkedIn | _a preencher_ |
