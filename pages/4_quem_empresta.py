@@ -35,6 +35,6 @@ if mes_base != mes_ref and not seg.empty:
         interface.mostrar(
             graficos.barras(seg.sort_values("inadimplencia_ref_pct", ascending=False), "segmento", "inadimplencia_ref_pct",
                             f"Inadimplência em {utils.nome_mes(mes_ref)}", "% da carteira"),
-            "parcela da carteira com atraso acima de 90 dias.",
+            "percentual da carteira em operações com alguma parcela em atraso acima de 90 dias.",
         )
 st.caption("A classificação 'Fintech', 'Banco' etc. é a do próprio BCB no campo 'segmento' do SCR.data.")

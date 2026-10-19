@@ -22,15 +22,17 @@ st.markdown(f"""
 6. Validação: a carteira nacional de dez/2025 confere com o arquivo bruto (R$ 7,444 tri, desvio de 0,00%).
 
 ### Indicadores
-- **Inadimplência** = carteira vencida há mais de 90 dias ÷ carteira ativa.
+- **Inadimplência** = saldo total (a vencer + vencido) das operações com **alguma parcela em atraso acima de 90 dias** ÷ carteira ativa (definição do BCB).
+- **Ativo problemático** = operações em atraso acima de 90 dias ou com indícios de que não serão honradas (ex.: reestruturadas), ÷ carteira ativa.
 - **Crescimento** = variação da carteira ativa entre o mês base (12 meses antes do fim do período, quando disponível) e o mês final.
 - **HHI** = soma dos quadrados das participações de mercado (0 a 10.000).
 - **Spearman** = correlação entre o crescimento e a variação da inadimplência dos segmentos.
 
 ### Limites (leia antes de concluir)
 - Os dados são **agregados**: não há informação de clientes ou contratos individuais, nem de instituições específicas.
+- O SCR.data cobre operações de valor acima de R$ 200 (limite de identificação do SCR desde jun/2016); valores menores não aparecem.
 - A supressão por sigilo esconde o número de operações de cerca de 27% das combinações (o saldo continua somado).
-- **Quebra em jan/2025:** a inadimplência subiu 0,31 p.p. em um único mês, cinco vezes a maior alta mensal de 2024. O mês coincide com a entrada em vigor da Resolução CMN 4.966/2021, que mudou regras contábeis de classificação de risco. É uma **hipótese** (não testada): parte da alta pode ser mudança de mensuração. Por isso, comparações dez/2024 → dez/2025 devem ser lidas com cautela.
+- **Quebra em jan/2025:** segundo a metodologia do BCB, a partir de jan/2025 o **ativo problemático** passou a considerar somente as operações que as próprias instituições classificam como tal (mudança oficial de definição). Já a definição de **inadimplência** não mudou, mas ela subiu 0,31 p.p. em um único mês, cinco vezes a maior alta mensal de 2024. O mês coincide com a entrada em vigor da Resolução CMN 4.966/2021 (novas regras contábeis de crédito); que isso explique parte da alta é uma **hipótese** não testada. Por isso, comparações dez/2024 → dez/2025 devem ser lidas com cautela.
 - 24 meses é uma série curta: tendências descrevem o período e **não são previsões**.
 - As análises mostram **associações**, não causas.
 """)

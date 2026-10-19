@@ -41,8 +41,8 @@ with aba_produto:
         interface.mostrar(
             graficos.barras(mod.sort_values("inadimplencia_ref_pct", ascending=False), "modalidade", "inadimplencia_ref_pct",
                             f"Inadimplência por modalidade ({utils.nome_mes(mes_ref)})", "% da carteira"),
-            "modalidades com maior parcela em atraso acima de 90 dias. 'Adiantamentos a depositantes' (cheque especial "
-            "sem limite) é pequena em saldo, mas tem inadimplência muito alta.",
+            "modalidades com maior inadimplência. 'Adiantamentos a depositantes' (saldo devedor em conta sem limite "
+            "contratado) é pequena em saldo, mas tem inadimplência muito alta.",
         )
     grupo = analysis.serie_mensal(fato, por="grupo_credito")
     interface.mostrar(
