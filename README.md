@@ -1,6 +1,6 @@
 # Panorama do Crédito Nacional: crescimento e risco (SCR.data, 2024–2025)
 
-> **App publicado:** [scr-credito-nacional.streamlit.app](https://scr-credito-nacional.streamlit.app) · **Vídeo:** _a preencher_
+> **App publicado:** [scr-credito-nacional.streamlit.app](https://scr-credito-nacional.streamlit.app) · **Vídeo:** [Google Drive](https://drive.google.com/drive/folders/1uOrpZDAwGaje4fs7T35sJC55Xh6xvcli?usp=sharing)
 >
 > Projeto Final · Visualização de Dados e BI (Módulo 2) · SCTEC · SENAI/SC · LAB365 · 2026
 > **Autor:** Anderson Diroza · **Professor:** Rodrigo Garcia Brunini
@@ -458,7 +458,7 @@ scr-credito-streamlit/
 | Planejamento do projeto | [Especificação](docs/especificacao_projeto.md) e [plano de implementação em 13 tarefas](docs/plano_implementacao.md), versionados no repositório |
 | Repositório oficial da turma | _a preencher_ |
 | Publicação no LinkedIn | _a preencher_ |
-| Vídeo (Google Drive, acesso de leitor por link) | _a preencher_ |
+| Vídeo (Google Drive, acesso de leitor por link) | [Projeto Final (1:40)](https://drive.google.com/drive/folders/1uOrpZDAwGaje4fs7T35sJC55Xh6xvcli?usp=sharing) |
 
 ## 16. Estratégia de versionamento
 
