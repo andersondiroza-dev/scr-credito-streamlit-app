@@ -456,8 +456,8 @@ scr-credito-streamlit/
 | App publicado (Streamlit Community Cloud) | [scr-credito-nacional.streamlit.app](https://scr-credito-nacional.streamlit.app) |
 | Espelho público usado no deploy | [github.com/andersondiroza-dev/scr-credito-streamlit-app](https://github.com/andersondiroza-dev/scr-credito-streamlit-app) |
 | Planejamento do projeto | [Especificação](docs/especificacao_projeto.md) e [plano de implementação em 13 tarefas](docs/plano_implementacao.md), versionados no repositório |
-| Repositório oficial da turma | _a preencher_ |
-| Publicação no LinkedIn | _a preencher_ |
+| Repositório oficial da turma | [Projeto_ZP / Projetos / Projeto_Final_do_Curso / Anderson_Roza](https://github.com/Visualizacao-Dados-BI-T1/Projeto_ZP/tree/main/Projetos/Projeto_Final_do_Curso/Anderson_Roza) (privado da turma) |
+| Publicação no LinkedIn | [Post com o vídeo e as marcações](https://www.linkedin.com/posts/andersondiroza_businessintelligence-analisededados-python-activity-7518799067444039680-3Hu7) |
 | Vídeo (Google Drive, acesso de leitor por link) | [Projeto Final (1:40)](https://drive.google.com/drive/folders/1uOrpZDAwGaje4fs7T35sJC55Xh6xvcli?usp=sharing) |
 
 ## 16. Estratégia de versionamento
